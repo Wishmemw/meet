@@ -1,0 +1,54 @@
+import random
+
+# Initialize player's stats
+health = 100
+hunger = 100
+water = 100
+
+# Define functions for managing player's stats
+def decrease_hunger():
+    global hunger
+    hunger -= random.randint(5, 10)
+    if hunger < 0:
+        hunger = 0
+    print("Your hunger has decreased.")
+
+def decrease_water():
+    global water
+    water -= random.randint(5, 10)
+    if water < 0:
+        water = 0
+    print("Your water level has decreased.")
+
+def restore_health(amount):
+    global health
+    health += amount
+    if health > 100:
+        health = 100
+    print("Your health has been restored.")
+
+# Game loop
+while True:
+    print("Health: {} / 100".format(health))
+    print("Hunger: {} / 100".format(hunger))
+    print("Water: {} / 100".format(water))
+
+    # Check if player has died
+    if health <= 0 or hunger <= 0 or water <= 0:
+        print("You have died.")
+        break
+
+    # Prompt player for action
+    action = input("What would you like to do? (eat, drink, rest) ")
+
+    # Handle player's action
+    if action == "eat":
+        decrease_hunger()
+        restore_health(10)
+    elif action == "drink":
+        decrease_water()
+        restore_health(5)
+    elif action == "rest":
+        restore_health(5)
+    else:
+        print("Invalid action.")
